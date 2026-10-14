@@ -1,0 +1,39 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server:java21
+    container_name: minecraft
+    restart: unless-stopped
+    stop_grace_period: 60s
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      TYPE: "MODRINTH"
+
+      # --- Modpack (.mrpack) ---
+      MODRINTH_MODPACK: "/modpacks/Ligerblocks.mrpack"
+
+      # The loader (Fabric/Forge/NeoForge/Quilt) and Minecraft version are
+      # read from the mrpack automatically; no TYPE or VERSION needed.
+
+      # Include client-only optional mods? (default: required only)
+      # MODRINTH_DEFAULT_EXCLUDE_INCLUDES: ""
+
+      # Exclude mods that break on servers
+      MODRINTH_EXCLUDE_FILES: "bits-n-bobs,wakes"
+
+      # --- Server settings ---
+      MEMORY: "16G"
+      MOTD: "Welcome to LIGERBLOCKS!"
+      DIFFICULTY: "normal"
+      MAX_PLAYERS: "10"
+      ENABLE_WHITELIST: "TRUE"
+      WHITELIST: "PlazmaBoltz,Yoshi10000"
+      EXISTING_WHITELIST_FILE: "MERGE"
+      OPS: "PlazmaBoltz"
+      TZ: "America/New_York"
+    volumes:
+      - ./data:/data
+      - ./modpacks:/modpacks:ro

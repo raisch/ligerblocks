@@ -1,0 +1,40 @@
+{
+  "name": "ligerblocks-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Helper scripts for the LigerBlocks Minecraft server (Docker Compose)",
+  "scripts": {
+    "server:up": "docker compose up -d",
+    "server:down": "docker compose down",
+    "server:restart": "docker compose restart",
+    "server:status": "docker compose ps",
+    "server:config": "docker compose config",
+    "server:logs": "docker compose logs -f --tail=100",
+    "server:update": "docker compose pull && docker compose up -d",
+    "server:console": "docker compose exec minecraft rcon-cli",
+    "server:shell": "docker compose minecraft bash",
+    "server:save": "docker compose exec minecraft rcon-cli save-all flush",
+    "server:backup": "docker compose exec -T minecraft rcon-cli save-all flush && tar czf backup-$(date +%F-%H%M).tar.gz data",
+    "server:backup:prune": "find . -maxdepth 1 -name 'backup-*.tar.gz' -mtime +7 -delete",
+    "server:say": "docker compose exec minecraft rcon-cli say",
+    "server:players": "docker compose exec minecraft rcon-cli list",
+    "server:tps": "docker compose exec minecraft rcon-cli neoforge tps",
+    "server:stats": "docker stats --no-stream minecraft",
+    "server:errors": "docker compose logs --no-color | grep -iE 'error|exception|crash'",
+    "server:disk": "du -sh data modpacks && df -h .",
+
+    "player:kick": "docker compose exec minecraft rcon-cli kick",
+    "player:ban": "docker compose exec minecraft rcon-cli ban",
+    "player:unban": "docker compose exec minecraft rcon-cli unban",
+
+    "whitelist:on": "docker compose exec minecraft rcon-cli whitelist on",
+    "whitelist:off": "docker compose exec minecraft rcon-cli whitelist off",
+    "whitelist:add": "docker compose exec minecraft rcon-cli whitelist add",
+    "whitelist:remove": "docker compose exec minecraft rcon-cli whitelist remove",
+    "whitelist:list": "docker compose exec minecraft rcon-cli whitelist list",
+    "whitelist:reload": "docker compose exec minecraft rcon-cli whitelist reload",
+
+    "op:add": "docker compose exec minecraft rcon-cli op",
+    "op:remove": "docker compose exec minecraft rcon-cli deop"
+  }
+}
