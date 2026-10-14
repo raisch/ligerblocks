@@ -1,0 +1,13 @@
+name = "Voxy Server Side"
+filename = "voxy-server-side-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/84zcagOb/versions/Vm3P8eng/voxy-server-side-neoforge.jar"
+hash-format = "sha512"
+hash = "5a43cef07dfb4a475af91a191d38da7ff4025b3921cf1031679d96e955ed8b6425ecb2c4fd4388d9bd3c327f011b263bbed0471d27d777f2ba07e760a434d957"
+
+[update]
+[update.modrinth]
+mod-id = "84zcagOb"
+version = "Vm3P8eng"

@@ -1,0 +1,13 @@
+name = "Create: Deep Seas - Lava Fix"
+filename = "submarinefix-1.0.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/NgqP2RZb/versions/9LUKMhCi/submarinefix-1.0.1.jar"
+hash-format = "sha512"
+hash = "e16494197df88afd076f73ea75ad055167e15ec7c343aa3a137df34a3c4bb611f1eb956a37ef2fe3378caa6312eae37e8104335d0e9a4621657a946602c91c0a"
+
+[update]
+[update.modrinth]
+mod-id = "NgqP2RZb"
+version = "9LUKMhCi"

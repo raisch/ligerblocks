@@ -1,0 +1,13 @@
+name = "Create: Gunsmithing Break Framed Glass (Trap)Doors"
+filename = "cgsbreakglassdoors-1.1.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/NwxGPyDG/versions/1YzWKFdc/cgsbreakglassdoors-1.1.1.jar"
+hash-format = "sha512"
+hash = "3e34fb61fb51844fa923f4eaba9aac8f1df35008021672425b4d48d2c10fcd8cc329c9ba57f8ed3e6ca7f759d985916e862ea40674d960f3a12013d0d07fde93"
+
+[update]
+[update.modrinth]
+mod-id = "NwxGPyDG"
+version = "1YzWKFdc"

@@ -1,0 +1,13 @@
+name = "Creat Aeronautics Structures"
+filename = "cr_aero_structures.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/aX7eWKKb/versions/GgCMtS4V/cr_aero_structures.jar"
+hash-format = "sha512"
+hash = "08fc053c2fb3186c11ada383427fa04c0367ef2b274afcf06d5786526c9fd1d43347021e34159a46d3411683a44a644406cb7229e8773c0bbd0c4c07b9048cab"
+
+[update]
+[update.modrinth]
+mod-id = "aX7eWKKb"
+version = "GgCMtS4V"

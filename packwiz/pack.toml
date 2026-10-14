@@ -1,0 +1,13 @@
+name = "LigerBlocks"
+author = "Rob Raisch <raisch@gmail.com>"
+version = "1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "ced29f8bce0ae4a1f5260dfb11e174f9ecdb4dd9608e9168d66b7767e36126bf"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.256"

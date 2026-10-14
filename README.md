@@ -22,8 +22,10 @@ The loader and Minecraft version are read from the modpack, not set by hand.
 ├── docker-compose.yaml    # server definition
 ├── package.json           # helper scripts (npm run ...)
 ├── README.md
-├── modpacks/
-│   └── Ligerblocks.mrpack # the modpack (read-only inside the container)
+├── packwiz/               # working files for the modpack (see "Modpack workflow")
+├── modpacks/              # exported packs, mounted read-only in the container
+│   ├── Ligerblocks-YYYYMMDD-VV.mrpack   # every released version, kept
+│   └── Ligerblocks.mrpack -> Ligerblocks-YYYYMMDD-VV.mrpack   # symlink to the current one
 └── data/                  # world, config, mods, whitelist (created on first run)
 ```
 
@@ -156,15 +158,94 @@ A nightly backup via cron (`crontab -e`):
 To restore, stop the server, replace `data/` with the extracted archive's
 `data/`, and start it again.
 
-## Updating the modpack
+## Modpack workflow (packwiz)
+
+The pack is maintained with [packwiz](https://github.com/packwiz/packwiz), a
+command-line tool that stores a modpack as small text files (one per mod) and
+exports a `.mrpack`. All work files live in `./packwiz`. Run packwiz commands
+from inside that folder, ideally on your local machine, and copy only the
+finished `.mrpack` to the server.
+
+Install packwiz with Go (`go install github.com/packwiz/packwiz@latest`, check
+the project README for the Go version it needs) or download a prebuilt binary
+from the project's GitHub Actions page. Documentation: https://packwiz.infra.link/
+
+### How the pack was created
+
+packwiz has no documented import for Modrinth packs, so the original
+`.mrpack` was converted by adding its mods to a new packwiz pack with
+`packwiz modrinth add`, then running `packwiz refresh`. Mods not hosted on
+Modrinth need `packwiz url add <name> <download-url>` instead.
+
+### Making a change
+
+From `./packwiz`:
+
+```
+packwiz modrinth add <modrinth-url-or-slug>   # add a mod (or: packwiz remove <slug>)
+packwiz refresh                               # rebuild index.toml and pack.toml
+packwiz modrinth export                       # writes a .mrpack in the current folder
+```
+
+When adding a mod, accept the prompt to install its required dependencies,
+or the server fails on startup with a missing-dependency error. Then check the
+mod's `side` in its file under `mods/` (`both`, `server` or `client`). A mod
+that must load on the server must not be `client`, or the image skips it and
+players get a "channel missing on the server" disconnect.
+
+### Naming and releasing a version
+
+Exported files are renamed to `Ligerblocks-YYYYMMDD-VV.mrpack`, where `VV` is a
+two-digit version for that day (`01`, `02`, ...). Every released file stays in
+`./modpacks`, so you can roll back by pointing the symlink at an older one.
+
+```
+cd ./packwiz
+mv <exported-file>.mrpack Ligerblocks-YYYYMMDD-VV.mrpack
+cp Ligerblocks-YYYYMMDD-VV.mrpack ../modpacks
+cd ../modpacks
+ln -sfn Ligerblocks-YYYYMMDD-VV.mrpack Ligerblocks.mrpack
+```
+
+`docker-compose.yaml` points at the symlink (`MODRINTH_MODPACK:
+"/modpacks/Ligerblocks.mrpack"`), so the compose file never changes between
+versions. Use `ln -sfn` rather than `ln -s`: plain `ln -s` fails once the link
+already exists. The link must be relative and inside `modpacks/`, because
+Docker only sees that folder, so a link to a file elsewhere breaks.
+
+The symlink name must match `MODRINTH_MODPACK` exactly, including
+capitalization.
+
+### Applying the new version to the server
 
 1. `npm run server:backup`
-2. Replace the file in `modpacks/` (keep the same filename, or update
-   `MODRINTH_MODPACK` to match).
+2. Release the new file and update the symlink (above).
 3. `npm run server:restart`
 
 The image re-reads the pack on startup and installs the loader and mod
-versions it specifies. Players need the matching client version of the pack.
+versions it specifies. Check the log for `Processing modpack files for ...` and
+for the `Done (...)!` line, and look in `data/mods` for leftover jars from
+removed mods (`ls data/mods`). Players need the matching version of the pack on
+their clients: give them the new `.mrpack` and have them import it in the
+Modrinth App or Prism Launcher.
+
+### Rolling back
+
+Point the symlink at the previous file and restart:
+
+```
+cd ./modpacks
+ln -sfn Ligerblocks-<previous>.mrpack Ligerblocks.mrpack
+cd .. && npm run server:restart
+```
+
+Restore a backup of `data/` too if the newer version changed the world.
+
+### Keeping the pack in git
+
+The `packwiz/` folder is plain text, so it works well in a git repository: a
+diff shows exactly which mods changed between versions. Keep the `.mrpack`
+files, `data/` and backups out of the repository (see `.gitignore`).
 
 ## Troubleshooting
 
@@ -203,3 +284,4 @@ and `free -h`. Lower or raise `MEMORY` as needed, leaving headroom for the OS.
 **Can't connect from outside.** Confirm the container is up (`docker compose ps`),
 the log shows `Done`, UFW allows 25565/tcp, and your VPS provider's network
 firewall (if any) allows it too.
+

@@ -1,0 +1,13 @@
+name = "Create Automated"
+filename = "Create Automated-1.3-1.21.1-Neo21.1.248.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/3WPBx3OU/versions/B7V8f3eC/Create%20Automated-1.3-1.21.1-Neo21.1.248.jar"
+hash-format = "sha512"
+hash = "2e85f3ca28c38d30bfa502ea6d47156e00e1ccc1e7cb929f507edbd329061ec1451b5d71e87433511b4680fe26796d033ba2757fd5260711dae1b9120edea8ed"
+
+[update]
+[update.modrinth]
+mod-id = "3WPBx3OU"
+version = "B7V8f3eC"
