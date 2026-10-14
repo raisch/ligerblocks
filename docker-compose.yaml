@@ -10,6 +10,7 @@ services:
       - "25565:25565"
     environment:
       EULA: "TRUE"
+      SEED: "5294879711726671709"
       TYPE: "MODRINTH"
 
       # --- Modpack (.mrpack) ---
