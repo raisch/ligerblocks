@@ -36,6 +36,8 @@ services:
       EXISTING_WHITELIST_FILE: "MERGE"
       OPS: "PlazmaBoltz"
       TZ: "America/New_York"
+      # --- Additional server settings ---
+      SPAWN_PROTECTION: "0"
     volumes:
       - ./data:/data
       - ./modpacks:/modpacks:ro

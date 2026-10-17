@@ -179,7 +179,15 @@ Modrinth need `packwiz url add <name> <download-url>` instead.
 
 ### Making a change
 
-From `./packwiz`:
+With the npm helpers:
+
+```
+npm run modpack:refresh
+npm run modpack:export
+npm run modpack:rebuild      # refresh + export
+```
+
+Or run packwiz directly from `./packwiz`:
 
 ```
 packwiz modrinth add <modrinth-url-or-slug>   # add a mod (or: packwiz remove <slug>)
@@ -284,4 +292,3 @@ and `free -h`. Lower or raise `MEMORY` as needed, leaving headroom for the OS.
 **Can't connect from outside.** Confirm the container is up (`docker compose ps`),
 the log shows `Done`, UFW allows 25565/tcp, and your VPS provider's network
 firewall (if any) allows it too.
-
