@@ -52,7 +52,9 @@ services:
     container_name: minecraft-admin
     restart: unless-stopped
 
-    env_file: ../minecraft-admin-portal/.env
+    env_file: 
+      - ./.env
+      - ../minecraft-admin-portal/.env
 
     environment:
       RCON_PASSWORD: "${RCON_PASSWORD:?Set RCON_PASSWORD in .env}"
