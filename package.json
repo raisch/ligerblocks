@@ -4,8 +4,8 @@
   "private": true,
   "description": "Helper scripts for the LigerBlocks Minecraft server (Docker Compose)",
   "scripts": {
-    "modpack:refresh": "cd packwiz && packwiz refresh",
-    "modpack:export": "cd packwiz && packwiz modrinth export",
+    "modpack:refresh": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" refresh",
+    "modpack:export": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" modrinth export",
     "modpack:rebuild": "npm run modpack:refresh && npm run modpack:export",
 
     "server:up": "docker compose up -d",

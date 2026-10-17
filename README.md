@@ -187,12 +187,16 @@ npm run modpack:export
 npm run modpack:rebuild      # refresh + export
 ```
 
-Or run packwiz directly from `./packwiz`:
+These scripts prefer `/root/go/bin/packwiz` when it exists, and otherwise fall
+back to the repository-local binary at `./bin/packwiz`.
+
+Or run packwiz directly from `./packwiz` with either `/root/go/bin/packwiz` or
+`../bin/packwiz`:
 
 ```
-packwiz modrinth add <modrinth-url-or-slug>   # add a mod (or: packwiz remove <slug>)
-packwiz refresh                               # rebuild index.toml and pack.toml
-packwiz modrinth export                       # writes a .mrpack in the current folder
+../bin/packwiz modrinth add <modrinth-url-or-slug>   # add a mod (or: ../bin/packwiz remove <slug>)
+../bin/packwiz refresh                               # rebuild index.toml and pack.toml
+../bin/packwiz modrinth export                       # writes a .mrpack in the current folder
 ```
 
 When adding a mod, accept the prompt to install its required dependencies,
