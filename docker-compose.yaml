@@ -8,7 +8,8 @@ services:
     stdin_open: true
     ports:
       - "25565:25565"
-      - "24454:24454"
+      - "25575:25575" # RCON port
+      - "24454:24454" # Voice chat port
     environment:
       EULA: "TRUE"
       SEED: "5294879711726671709"
@@ -32,7 +33,7 @@ services:
       DIFFICULTY: "normal"
       MAX_PLAYERS: "10"
       ENABLE_WHITELIST: "TRUE"
-      WHITELIST: "PlazmaBoltz,Yoshi10000"
+      WHITELIST: "PlazmaBoltz,CoachRob"
       EXISTING_WHITELIST_FILE: "MERGE"
       OPS: "PlazmaBoltz,CoachRob"
       TZ: "America/New_York"
