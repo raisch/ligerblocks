@@ -34,10 +34,37 @@ services:
       ENABLE_WHITELIST: "TRUE"
       WHITELIST: "PlazmaBoltz,Yoshi10000"
       EXISTING_WHITELIST_FILE: "MERGE"
-      OPS: "PlazmaBoltz"
+      OPS: "PlazmaBoltz,CoachRob"
       TZ: "America/New_York"
       # --- Additional server settings ---
+      ENABLE_RCON: "TRUE"
+      RCON_PORT: "24454"
+      RCON_PASSWORD: "${RCON_PASSWORD}"
       SPAWN_PROTECTION: "0"
     volumes:
       - ./data:/data
       - ./modpacks:/modpacks:ro
+  admin:
+    build:
+      context: ../minecraft-admin-portal
+      dockerfile: Dockerfile
+    container_name: minecraft-admin
+    restart: unless-stopped
+
+    env_file: ../minecraft-admin-portal/.env
+
+    environment:
+      RCON_PASSWORD: "${RCON_PASSWORD:?Set RCON_PASSWORD in .env}"
+      SESSION_SECRET: "${SESSION_SECRET:?Set SESSION_SECRET in .env}"
+
+    ports:
+      - "127.0.0.1:3000:3000"
+
+    volumes:
+      - admin-data:/data
+
+    depends_on:
+      - minecraft
+
+volumes:
+  admin-data:
