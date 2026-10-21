@@ -1,3 +1,6 @@
+archive/
 data/
 tmp/
 *.log
+backup-*
+.env
