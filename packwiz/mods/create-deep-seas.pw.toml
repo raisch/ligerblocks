@@ -1,13 +1,13 @@
-name = "Create Deep Seas"
-filename = "create_submarine-3.3.0.jar"
+name = "Create Deep Seas [BETA]"
+filename = "create_submarine-3.0.0.jar"
 side = "both"
 
 [download]
-url = "https://cdn.modrinth.com/data/mva5q4qZ/versions/8CV1LRTl/create_submarine-3.3.0.jar"
+url = "https://cdn.modrinth.com/data/mva5q4qZ/versions/41sLCAgq/create_submarine-3.0.0.jar"
 hash-format = "sha512"
-hash = "df2cf8242deaf7954f146fd8571000b654f0660e78e52bd1888bdd13aef4ed658dfabd89741e914313d746b0b5b7f78acfd02642f8718b51593bb6ec38b308de"
+hash = "b4b568ce9fb4fbd27efb4c92f8a4fb072e43be24f5b8512c344932b4ece91fd138ff7a420083e1566bbca8ad93af7fba6d625550969ce6b2d8c2fef9b8aa4b3b"
 
 [update]
 [update.modrinth]
 mod-id = "mva5q4qZ"
-version = "8CV1LRTl"
+version = "41sLCAgq"

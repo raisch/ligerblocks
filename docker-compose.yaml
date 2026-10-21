@@ -2,7 +2,7 @@ services:
   minecraft:
     image: itzg/minecraft-server:java21
     container_name: minecraft
-    restart: unless-stopped
+    ## restart: unless-stopped
     stop_grace_period: 60s
     tty: true
     stdin_open: true
@@ -25,10 +25,10 @@ services:
       # MODRINTH_DEFAULT_EXCLUDE_INCLUDES: ""
 
       # Exclude mods that break on servers
-      MODRINTH_EXCLUDE_FILES: "bits-n-bobs,wakes"
+      # MODRINTH_EXCLUDE_FILES: "bits-n-bobs,wakes"
 
       # --- Server settings ---
-      MEMORY: "16G"
+      MEMORY: "5G"
       MOTD: "Welcome to LIGERBLOCKS!"
       DIFFICULTY: "normal"
       MAX_PLAYERS: "10"
@@ -65,6 +65,7 @@ services:
 
     volumes:
       - admin-data:/data
+      - ./data/logs:/minecraft-logs:ro
 
     depends_on:
       - minecraft
